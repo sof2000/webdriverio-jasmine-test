@@ -23,7 +23,13 @@ exports.config = {
         //'./test/specs/**/*.js'
         //'./test/specs/selectors-test.js'
         //'./test/specs/findelements-test.js'
-        './test/specs/main-commands-test.js'
+        //'./test/specs/main-commands-test.js'
+        // './test/specs/input-test.js'
+        //'./test/specs/state-commands-test.js'
+        //'./test/specs/custom-commands-test.js'
+        // './test/specs/invalid-selectors-test.js'
+        './test/specs/jasmine-assertions-test.js'
+
     ],
     // Patterns to exclude.
     exclude: [
