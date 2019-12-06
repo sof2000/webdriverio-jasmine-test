@@ -28,9 +28,32 @@ exports.config = {
         //'./test/specs/state-commands-test.js'
         //'./test/specs/custom-commands-test.js'
         // './test/specs/invalid-selectors-test.js'
-        './test/specs/jasmine-assertions-test.js'
+        //'./test/specs/jasmine-assertions-test.js',
+        // './test/specs/landing-page.js'
+        // './test/specs/submit-application-e2e-test.js'
+        // './test/specs/submit-app-validation-e2e-test.js'
+        // './test/specs/submit-app-validation-e2e-suite.js'
+        './test/specs/submit-app-optimization-suite.js'
 
     ],
+    suites: {
+        engprod: [
+
+        ],
+        uat: [
+ 
+        ],
+        dev: [
+            './test/specs/landing-page.js',
+            './test/specs/submit-app-optimization-suite.js'
+        ],
+        dev_qa: [
+            './test/specs/input-test.js',
+            './test/specs/state-commands-test.js',
+            './test/specs/submit-app-validation-e2e-suite.js',
+            './test/specs/submit-app-optimization-suite.js'
+        ],
+    },
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
