@@ -8,22 +8,34 @@ const menuLinksText = [
 ]
 
 function validateTextElement(selector, expectedValue) {
-    const pageTitleElement = $(selector);
-    const actualTitle = pageTitleElement.getText(); 
+    const element = $(selector);
+    const actualTitle = element.getText(); 
     const expectedTitle = expectedValue;
     expect(actualTitle).toMatch(expectedTitle);
 }
 
 function validatePlaceholderText(selector, expectedValue) {
-    const inputFieldElement = $(selector);
-    const actualPlaceholderAccountsText = inputFieldElement.getAttribute('placeholder');
-    const expectedPlaceholderAccountsText = expectedValue;
-    expect(actualPlaceholderAccountsText).toMatch(expectedPlaceholderAccountsText);
+    const element = $(selector);
+    const actualText = element.getAttribute('placeholder');
+    const expectedText = expectedValue;
+    expect(actualText).toMatch(expectedText);
 }
 
 function validateElementExisting(selector) {
-    const inputFieldElement = $(selector);
-    expect(inputFieldElement.isExisting()).toBe(true);
+    const element = $(selector);
+    expect(element.isExisting()).toBe(true);
+}
+
+function waitAndClick(selector, waitTime) {
+    const element = $(selector);
+    element.waitForExist(waitTime);
+    element.click();
+}
+
+function waitAndSendKey(selector, value ,waitTime) {
+    const element = $(selector);
+    element.waitForExist(waitTime);
+    element.setValue(value);
 }
 
 beforeAll( function() {
@@ -64,14 +76,11 @@ describe('demo.asteria.com submit application e2e test', () => {
     })
     
     it('Click Accounts link', () => {
-        const accountsElement = $('a=Accounts');
-        accountsElement.click();
+        waitAndClick('a=Accounts', 5000);
     })
 
     describe('Accounts page test', () => {
         it('Validate Accounts page Step 1', () => {
-            const inputFieldElement = $('#zipcode1');
-            const goButtonElement = $('#gozip');
 
             browser.navigateTo('http://demo.asteriag.com/accounts/');
 
@@ -80,19 +89,18 @@ describe('demo.asteria.com submit application e2e test', () => {
             validateTextElement('article>div>p:nth-child(1)', 'Please, Enter your Zip Code:');
         })
         it('Validate Accounts page Step 2', () => {
-            const inputFieldElement = $('#zipcode1');
-            const goButtonElement = $('#gozip');
+            
             validateElementExisting('#zipcode1');
 
             validatePlaceholderText('#zipcode1', 'Zip Code');
     
-            inputFieldElement.setValue('80111');
+            waitAndSendKey('#zipcode1', '80111')
 
             validateElementExisting('#gozip');
             
             validateTextElement('#gozip', 'GO');
-    
-            goButtonElement.click();
+
+            waitAndClick('#gozip');
     
         })
     })
@@ -100,9 +108,6 @@ describe('demo.asteria.com submit application e2e test', () => {
         it('Choose Account Type page Validation', () => {
             browser.navigateTo('http://demo.asteriag.com/choose-account-type/');
 
-            const checkingAndSavingsAccountCheckbox = $('#checkingsavings');
-            const openAccountElement = $('#openaccount');
-            
             validateTextElement("h1[class='entry-title']", "CHOOSE ACCOUNT TYPE");
 
             validateElementExisting('#checking');
@@ -117,13 +122,13 @@ describe('demo.asteria.com submit application e2e test', () => {
     
             validateTextElement("label[for='checkingsavings']", 'Checking and Savings Accounts');
 
-            checkingAndSavingsAccountCheckbox.click();
+            waitAndClick('#checkingsavings');
   
             validateElementExisting('#openaccount');
 
             validateTextElement('#openaccount', 'Open Account');
 
-            openAccountElement.click();
+            waitAndClick('#openaccount');
     
         })
     })
@@ -131,9 +136,6 @@ describe('demo.asteria.com submit application e2e test', () => {
     describe('Before you Apply test', () => {
         it('Validate Before you Apply Page', () => {
             browser.navigateTo('http://demo.asteriag.com/before-you-apply/');
-
-            const noCheckboxElement = $('#savingplusno');
-            const goToApplicationElement = $('#gotoapplication');
 
             validateTextElement("h1[class='entry-title']", "BEFORE YOU APPLY");
     
@@ -151,13 +153,13 @@ describe('demo.asteria.com submit application e2e test', () => {
 
             validateTextElement("label[for='savingplusno']", 'NO')
     
-            noCheckboxElement.click();
-    
+            waitAndClick('#savingplusno');
+
             validateElementExisting('#gotoapplication');
     
             validateTextElement('#gotoapplication', 'Go to Application');
-    
-            goToApplicationElement.click();
+
+            waitAndClick('#gotoapplication');
         })
     })
 
@@ -230,9 +232,6 @@ describe('demo.asteria.com submit application e2e test', () => {
         it('Validation Account SETUP page Validation', () => {
             browser.navigateTo('http://demo.asteriag.com/account-setup');
 
-            const ssnFieldElement = $('#ssn');
-            const submitButtonElement = $('#submit');
-
             validateTextElement("h1[class='entry-title']", "ACCOUNT SETUP");
     
            validateElementExisting('article>div>p:nth-child(1)');
@@ -242,14 +241,14 @@ describe('demo.asteria.com submit application e2e test', () => {
             validateElementExisting('#ssn');
 
             validatePlaceholderText('#ssn', 'SSN')
-    
-            ssnFieldElement.setValue('4567789');
+
+            waitAndSendKey('#ssn', '4567789');
 
             validateElementExisting('#submit');
     
             validateTextElement('#submit', 'Submit');
-    
-            submitButtonElement.click();
+
+            waitAndClick('#submit');
         })
     })
     

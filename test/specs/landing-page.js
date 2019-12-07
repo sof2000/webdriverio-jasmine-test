@@ -1,6 +1,7 @@
 describe('demo.asteriag.com landing page', () => {
     it('Launch web site', () => {
         browser.url('http://demo.asteriag.com/');
+        console.log('This is Launch web site console log ...');
     });
     it('Title validation', () => {
         const title = browser.getTitle();
