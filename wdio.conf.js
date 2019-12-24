@@ -1,3 +1,7 @@
+const { join } = require('path');
+const fs = require('fs');
+const folderName = 'run-' + Date.now();
+
 exports.config = {
     //
     // ====================
@@ -161,7 +165,7 @@ exports.config = {
     //     ui: 'bdd',
     //     timeout: 60000
     // },
-    jasmineNodeOpts: { defaultTimeoutInterval: 60000 }
+    jasmineNodeOpts: { defaultTimeoutInterval: 60000 },
     //
     // =====
     // Hooks
@@ -205,8 +209,9 @@ exports.config = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        fs.mkdirSync(process.cwd() + `/screenshots/${folderName}`);
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -227,8 +232,14 @@ exports.config = {
     /**
      * Function to be executed after a test (in Mocha/Jasmine).
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: function(test, context, { error, result, duration, passed, retries }) {
+        if ( passed == false) {
+            let fullName = test.fullName.trim().replace(/ /g,'-').toLowerCase();
+            browser.saveScreenshot(join(
+                process.cwd(), `./screenshots/${folderName}/` + fullName + '.png'
+            ));
+        }
+    },
 
 
     /**

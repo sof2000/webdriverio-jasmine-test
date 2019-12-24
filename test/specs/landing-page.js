@@ -13,7 +13,7 @@ describe('demo.asteriag.com landing page', () => {
         expect(image.isExisting()).toBe(true);
     });
     it('Accounts link validation', () => {
-        const accountsElement = $('.menu-main-menu-container>ul>li:nth-child(1)>a');
+        const accountsElement = $('test.menu-main-menu-container>ul>li:nth-child(1)>a');
         expect(accountsElement.isExisting()).toBe(true);
     });
     it('Accounts link Text validation', () => {
@@ -22,7 +22,7 @@ describe('demo.asteriag.com landing page', () => {
     });
 
     it('Business link validation', () => {
-        const businessElement = $('.menu-main-menu-container>ul>li:nth-child(2)>a');
+        const businessElement = $('test.menu-main-menu-container>ul>li:nth-child(2)>a');
         expect(businessElement.isExisting()).toBe(true);
     });
     it('Business link Text validation', () => {
